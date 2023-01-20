@@ -24,7 +24,7 @@ export const FormTodoList = ({ newTodo }) => {
     <>
       <form onSubmit={onFormSubmit}>
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg-12">
             <div className="form-group">
               <label htmlFor="descripcion">Descripción</label>
               <input
@@ -38,7 +38,7 @@ export const FormTodoList = ({ newTodo }) => {
               />
             </div>
           </div>
-          <div className="col-lg-6">
+          <div className="col-lg-12">
             <div className="form-group">
               <label htmlFor="fechaCulminacion">Fecha culminacion</label>
               <input
@@ -56,7 +56,7 @@ export const FormTodoList = ({ newTodo }) => {
 
 
 
-        <input type="submit" className="btn btn-primary" value="GUARDAR" />
+        <input type="submit" className="btn btn-primary mt-3" data-bs-dismiss="modal" value="GUARDAR" />
       </form>
     </>
   )
