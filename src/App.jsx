@@ -1,62 +1,28 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 import './App.css'
 import TodoList from './components/TodoList'
-import { todoListReducer } from './reducers/todoListReducer'
 import { ModalVentanaFormList } from './components/ModalVentanaFormList'
+import { useTodo } from './hooks/useTodo'
 
-const todoList = [
-  {
-    id: "001",
-    descripcion: "Task 1",
-    estado: false,
-    fecha_creacion: "",
-    fecha_culminacion: ""
-  },
-  {
-    id: "002",
-    descripcion: "Task 2",
-    estado: false,
-    fecha_creacion: "",
-    fecha_culminacion: ""
-  }
-]
 
 
 function App() {
 
-  const [todos, dispatch] = useReducer(todoListReducer, todoList);
+ 
 
-  const onAddItemList = (data) => {
-    console.log(data)
-    dispatch({
-      type: "[TODO] create",
-      payload: data
-    })
-  }
+  const {
+    todos,
+    todosContador,
+    todosPendientes,
+    onAddItemList,
+    onRemoveItemList,
+    onDoneItemList,
+    onUpdateItem
+  } = useTodo();
 
 
-  const onCancelItemList = (data) => {
-    dispatch({
-      type: "[TODO] remove",
-      payload: data
-    })
-  }
 
-  const onDoneItemList = (data) => {
-    console.log(data)
-    dispatch({
-      type: "[TODO] done",
-      payload: data
-    })
-  }
-
-  const onUpdateItem = (data) => {
-    dispatch({
-      type: "[TODO] update",
-      payload: data
-    })
-  }
-
+ 
 
   return (
     <div className="App">
@@ -70,6 +36,7 @@ function App() {
         <div className="row">
           <div className="col-lg-8 text-right">
             <h4>Lista de tareas</h4>
+            <small>Pendientes: {todosPendientes}</small>|<small>Total:{todosContador}</small>
         
           </div>
           <div className="col-lg-4">
@@ -78,9 +45,10 @@ function App() {
         </div>
       </div>
       <hr></hr>
+      
       <TodoList
         listTodos={todos}
-        onCancelItem={onCancelItemList}
+        onCancelItem={onRemoveItemList}
         onDoneItem={onDoneItemList}
         onUpdateItem={onUpdateItem}
       />

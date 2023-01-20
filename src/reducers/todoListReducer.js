@@ -6,31 +6,38 @@ export const todoListReducer = (stateInit, action) => {
             return [...stateInit, action.payload]
         case types.update:
             return stateInit.find((todo) => {
-                if(todo.id !== action.payload)
+                if (todo.id !== action.payload)
                     return {
                         ...todo,
-                        descripcion:action.payload.descripcion
+                        descripcion: action.payload.descripcion
                     }
-            })      
+            })
         case types.remove:
-            console.log('remove')
-            console.log(stateInit)
+
             return stateInit.filter((todo) => todo.id !== action.payload)
         case types.done:
-            
-
             return stateInit.map((todo) => {
-                /* console.log('done',action.payload)
-                console.log('todo.id',todo.id) */
+
                 if (todo.id === action.payload)
                     return {
                         ...todo,
                         estado: !todo.estado
                     }
-                console.log(todo)
                 return todo
             })
+        case types.remove:
 
+            return stateInit.filter((todo) => todo.id !== action.payload)
+        case types.filterDone:
+            return stateInit.map((todo) => {
+
+                if (todo.estado === true)
+                    return {
+                        ...todo,
+                        estado: !todo.estado
+                    }
+                return todo
+            })
 
         default:
             return stateInit;
