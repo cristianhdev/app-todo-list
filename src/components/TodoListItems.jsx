@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const TodoListItems = ({ todo, onCancelTodo, onDoneTodo, onUpdateTodo }) => {
+
+    const [stateCheckBox, setStateCheckBox] = useState()
+
+    useEffect(() => {
+
+        setStateCheckBox(todo.estado)
+
+    }, [todo]);
+
     return (
         <>
             <li className="list-group-item">
                 <div className="row">
                     <div className="col-8 d-flex justify-content-left align-items-center" >
                         <div className="flex  justify-content-between align-content-start align-items-start p-3">
-                            <input className="form-check-input align-start mx-3" type="checkbox" onChange={() => onDoneTodo(todo.id)} name="checkItem" id="checkItem" />
+                            <input className="form-check-input align-start mx-3" type="checkbox" checked={stateCheckBox} onChange={() => onDoneTodo(todo.id)} name="checkItem" id="checkItem" />
                             <span
                                 className={`${todo.estado ? 'text-decoration-line-through ' : ''}`}>
                                 {todo.descripcion}
@@ -23,15 +32,22 @@ export const TodoListItems = ({ todo, onCancelTodo, onDoneTodo, onUpdateTodo }) 
                                 Eliminar
                             </button>
                             <button
-                                onClick={() => onUpdateTodo(todo.id)}
+                                /* onClick={() => onUpdateTodo(todo.id)} */
+                                data-toggle="modal" data-target="#exampleModal2"
                                 className={`btn btn-outline-info ${todo.estado ? 'd-block' : 'd-none'}`}
-                                >
+                            >
                                 Editar
                             </button>
+                          
+
+
+                            
                         </div>
                     </div>
                 </div>
             </li>
+
+
         </>
     )
 }

@@ -33,6 +33,13 @@ export const useTodo = (initStateTodo = []) => {
         localStorage.setItem('todos', JSON.stringify(todos));
       }, [todos]);
 
+      const onListTodos = (data) => {
+        dispatch({
+            type: "[TODO] todos",
+            payload: data
+        })
+    }
+
     const onAddItemList = (data) => {
         
         dispatch({
@@ -65,20 +72,32 @@ export const useTodo = (initStateTodo = []) => {
     }
 
     const onFilterDone = (data) => {
+        console.log(data)
         dispatch({
-            type: "[TODO] filter done",
+            type: "[TODO] filter completados",
             payload: data
         })
     }
 
+    const onFilterNotDone = (data) => {
+        console.log(data)
+        dispatch({
+            type: "[TODO] filter incompletados",
+            payload: data
+        })
+    }
+
+
     return {
         todos,
         todosContador: todos.length,
-        todosPendientes: todos.filter((todo) => !todo.esatdo).length,
+        todosPendientes: todos.filter((todo) => !todo.estado).length,
         onAddItemList,
         onRemoveItemList,
         onDoneItemList,
         onUpdateItem,
-        onFilterDone
+        onListTodos,
+        onFilterDone,
+        onFilterNotDone
     }
 }
