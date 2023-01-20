@@ -1,61 +1,55 @@
-import React, { useReducer } from 'react'
+import React, { useState } from 'react'
 import './App.css'
 import TodoList from './components/TodoList'
-import { todoListReducer } from './reducers/todoListReducer'
 import { ModalVentanaFormList } from './components/ModalVentanaFormList'
+import { useTodo } from './hooks/useTodo'
 
-const todoList = [
-  {
-    id: "001",
-    descripcion: "Task 1",
-    estado: false,
-    fecha_creacion: "",
-    fecha_culminacion: ""
-  },
-  {
-    id: "002",
-    descripcion: "Task 2",
-    estado: false,
-    fecha_creacion: "",
-    fecha_culminacion: ""
-  }
-]
 
 
 function App() {
 
-  const [todos, dispatch] = useReducer(todoListReducer, todoList);
+  const [defaultCheck, setDefaultCheck] = useState('seleccione')
 
-  const onAddItemList = (data) => {
-    console.log(data)
-    dispatch({
-      type: "[TODO] create",
-      payload: data
-    })
+  const {
+    todos,
+    todosContador,
+    todosPendientes,
+    todosCancelados,
+    onListTodos,
+    onAddItemList,
+    onRemoveItemList,
+    onDoneItemList,
+    onUpdateItem,
+    onCanceladoItem
+  } = useTodo();
+
+
+  const onChangeFilter = (event) => {
+
+    switch (event.target.value) {
+      case "todos":
+        onListTodos(todos)
+        break;
+      case "completos":
+        filterComplete()
+        break;
+      case "por_hacer":
+        filterInComplete()
+        break;
+      default:
+        break;
+    }
   }
 
 
-  const onCancelItemList = (data) => {
-    dispatch({
-      type: "[TODO] remove",
-      payload: data
-    })
+  const filterComplete = () =>{
+    return todos.filter((todo)=> todo.estado === true)
   }
 
-  const onDoneItemList = (data) => {
-    console.log(data)
-    dispatch({
-      type: "[TODO] done",
-      payload: data
-    })
+  const filterInComplete = () =>{
+    return todos.filter((todo)=> todo.estado === false)
   }
 
-  const onUpdateItem = (data) => {
-    dispatch({
-      type: "[TODO] update",
-      payload: data
-    })
-  }
 
 
   return (
@@ -69,21 +63,45 @@ function App() {
         </div>
         <div className="row">
           <div className="col-lg-8 text-right">
-            <h4>Lista de tareas</h4>
-        
+            
+
+            <div className="row text-lg-start">
+              <div className="col-lg-6">
+                <label htmlFor="filter">Filtrar</label>
+              </div>
+              <div className="col-lg-6">
+                <select value={defaultCheck} className="form-control" id="filter" onChange={onChangeFilter}>
+                  <option value="seleccione">Seleccione</option>
+                  <option value="todos">Todos</option>
+                  <option value="por_hacer">Por hacer</option>
+                  <option value="completos">Completos</option>
+                  <option value="cancelado">Cancelado</option>
+                </select>
+              </div>
+
+            </div>
           </div>
           <div className="col-lg-4">
             <ModalVentanaFormList newTodoItem={onAddItemList} />
           </div>
         </div>
+
       </div>
       <hr></hr>
+      <h4 className="text-lg-start">Lista de tareas</h4>
       <TodoList
         listTodos={todos}
-        onCancelItem={onCancelItemList}
+        onCancelItem={onRemoveItemList}
         onDoneItem={onDoneItemList}
         onUpdateItem={onUpdateItem}
+        onCanceladoItem={onCanceladoItem}
       />
+      <hr></hr>
+      <div className="row">
+        <div className="col-lg-6 text-lg-start">
+          <small>Pendientes: {todosPendientes}</small> | <small>Total:{todosContador}</small> | <small> Cancelados:{todosCancelados} </small>
+        </div>
+      </div>
     </div>
   )
 }
