@@ -13,14 +13,21 @@ export const todoListReducer = (stateInit, action) => {
                     }
             })      
         case types.remove:
+            console.log('remove')
+            console.log(stateInit)
             return stateInit.filter((todo) => todo.id !== action.payload)
         case types.done:
+            
+
             return stateInit.map((todo) => {
+                /* console.log('done',action.payload)
+                console.log('todo.id',todo.id) */
                 if (todo.id === action.payload)
                     return {
                         ...todo,
                         estado: !todo.estado
                     }
+                console.log(todo)
                 return todo
             })
 
