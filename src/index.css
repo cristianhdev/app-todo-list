@@ -9,7 +9,12 @@
   background-color: #242424;
 }
 
-body{
-  width:100vw;
-  height:100vh
+body {
+  color:white;
+  width: 100vw;
+  height: 100vh;
+  background: #2962A0;
+  background: -webkit-linear-gradient(bottom, #2962A0, #2C8AA5);
+  background: -moz-linear-gradient(bottom, #2962A0, #2C8AA5);
+  background: linear-gradient(to top, #2962A0, #2C8AA5);
 }

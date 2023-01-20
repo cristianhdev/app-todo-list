@@ -9,6 +9,7 @@ export const FormTodoList = ({ newTodo }) => {
     id: new Date().getTime(),
     descripcion: "",
     estado: false,
+    cancelado:false,
     fecha_creacion: new Date().getTimezoneOffset(),
     fecha_culminacion: ""
   })

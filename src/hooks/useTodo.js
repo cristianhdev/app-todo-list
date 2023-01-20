@@ -1,39 +1,23 @@
-import { useReducer,useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import { todoListReducer } from '../reducers/todoListReducer'
-
-
-const todoList = [
-    {
-        id: "001",
-        descripcion: "Task 1",
-        estado: false,
-        fecha_creacion: "",
-        fecha_culminacion: ""
-    },
-    {
-        id: "002",
-        descripcion: "Task 2",
-        estado: false,
-        fecha_creacion: "",
-        fecha_culminacion: ""
-    }
-]
 
 
 export const useTodo = (initStateTodo = []) => {
 
     const init = () => {
         return JSON.parse(localStorage.getItem('todos') || []);
-      };
+    };
 
-    const [todos, dispatch] = useReducer(todoListReducer, initStateTodo,init);
+    console.log(init())
+
+    const [todos, dispatch] = useReducer(todoListReducer, initStateTodo, init);
 
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
-      }, [todos]);
+    }, [todos]);
 
-      const onListTodos = (data) => {
+    const onListTodos = (data) => {
         dispatch({
             type: "[TODO] todos",
             payload: data
@@ -41,7 +25,7 @@ export const useTodo = (initStateTodo = []) => {
     }
 
     const onAddItemList = (data) => {
-        
+
         dispatch({
             type: "[TODO] create",
             payload: data
@@ -71,18 +55,10 @@ export const useTodo = (initStateTodo = []) => {
         })
     }
 
-    const onFilterDone = (data) => {
+    const onCanceladoItem = (data) => {
         console.log(data)
         dispatch({
-            type: "[TODO] filter completados",
-            payload: data
-        })
-    }
-
-    const onFilterNotDone = (data) => {
-        console.log(data)
-        dispatch({
-            type: "[TODO] filter incompletados",
+            type: "[TODO] cancelado",
             payload: data
         })
     }
@@ -92,12 +68,12 @@ export const useTodo = (initStateTodo = []) => {
         todos,
         todosContador: todos.length,
         todosPendientes: todos.filter((todo) => !todo.estado).length,
+        todosCancelados: todos.filter((todo) => todo.cancelado).length,
         onAddItemList,
         onRemoveItemList,
         onDoneItemList,
         onUpdateItem,
-        onListTodos,
-        onFilterDone,
-        onFilterNotDone
+        onCanceladoItem,
+        onListTodos
     }
 }

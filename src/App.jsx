@@ -14,13 +14,13 @@ function App() {
     todos,
     todosContador,
     todosPendientes,
+    todosCancelados,
     onListTodos,
     onAddItemList,
     onRemoveItemList,
     onDoneItemList,
     onUpdateItem,
-    onFilterDone,
-    onFilterNotDone
+    onCanceladoItem
   } = useTodo();
 
 
@@ -31,16 +31,24 @@ function App() {
         onListTodos(todos)
         break;
       case "completos":
-        onFilterDone(todos)
+        filterComplete()
         break;
       case "por_hacer":
-        onFilterNotDone(todos)
+        filterInComplete()
         break;
       default:
         break;
     }
   }
 
+
+  const filterComplete = () =>{
+    return todos.filter((todo)=> todo.estado === true)
+  }
+
+  const filterInComplete = () =>{
+    return todos.filter((todo)=> todo.estado === false)
+  }
 
 
 
@@ -55,9 +63,9 @@ function App() {
         </div>
         <div className="row">
           <div className="col-lg-8 text-right">
-            <h4>Lista de tareas</h4>
+            
 
-            <div className="row">
+            <div className="row text-lg-start">
               <div className="col-lg-6">
                 <label htmlFor="filter">Filtrar</label>
               </div>
@@ -80,17 +88,18 @@ function App() {
 
       </div>
       <hr></hr>
-
+      <h4 className="text-lg-start">Lista de tareas</h4>
       <TodoList
         listTodos={todos}
         onCancelItem={onRemoveItemList}
         onDoneItem={onDoneItemList}
         onUpdateItem={onUpdateItem}
+        onCanceladoItem={onCanceladoItem}
       />
       <hr></hr>
       <div className="row">
         <div className="col-lg-6 text-lg-start">
-          <small>Pendientes: {todosPendientes}</small> | <small>Total:{todosContador}</small>
+          <small>Pendientes: {todosPendientes}</small> | <small>Total:{todosContador}</small> | <small> Cancelados:{todosCancelados} </small>
         </div>
       </div>
     </div>

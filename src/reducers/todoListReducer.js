@@ -25,15 +25,16 @@ export const todoListReducer = (stateInit, action) => {
                     }
                 return todo
             })
-        case types.remove:
-            return stateInit.filter((todo) => todo.id !== action.payload)
-        case types.filterCompletados:
-            return action.payload.filter((todo) => todo.estado === true)
-        case types.filterInCompletados:
-            return action.payload.filter((todo) => todo.estado === false)
-        case types.todos:
-           
-            return stateInit
+        case types.cancelado:
+            return stateInit.map((todo) => {
+
+                if (todo.id === action.payload)
+                    return {
+                        ...todo,
+                        cancelado: !todo.cancelado
+                    }
+                return todo
+            })
         default:
             return stateInit;
     }
