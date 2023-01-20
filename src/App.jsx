@@ -51,13 +51,9 @@ function App() {
   }
 
   const onUpdateItem = (data) => {
-    const itemUpdata = {
-      id: data.id,
-      description: ""
-    }
     dispatch({
       type: "[TODO] update",
-      payload: itemUpdata
+      payload: data
     })
   }
 

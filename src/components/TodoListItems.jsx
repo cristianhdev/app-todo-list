@@ -19,12 +19,13 @@ export const TodoListItems = ({ todo, onCancelTodo, onDoneTodo, onUpdateTodo }) 
                         <div className="d-grid gap-3">
                             <button
                                 onClick={() => onCancelTodo(todo.id)}
-                                className="btn  btn-outline-danger">
+                                className={`btn btn-outline-danger ${todo.estado ? 'd-none' : 'd-block'}`}>
                                 Eliminar
                             </button>
                             <button
                                 onClick={() => onUpdateTodo(todo.id)}
-                                className="btn btn-outline-info">
+                                className={`btn btn-outline-info ${todo.estado ? 'd-block' : 'd-none'}`}
+                                >
                                 Editar
                             </button>
                         </div>

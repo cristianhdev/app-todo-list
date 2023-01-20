@@ -57,6 +57,7 @@ export const FormTodoList = ({ newTodo }) => {
 
 
         <input type="submit" className="btn btn-primary mt-3" data-bs-dismiss="modal" value="GUARDAR" />
+        
       </form>
     </>
   )
