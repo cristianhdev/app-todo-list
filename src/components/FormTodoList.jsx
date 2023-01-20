@@ -25,7 +25,7 @@ export const FormTodoList = ({ newTodo }) => {
       <form onSubmit={onFormSubmit}>
         <div className="row">
           <div className="col-lg-6">
-            <div class="form-group">
+            <div className="form-group">
               <label htmlFor="descripcion">Descripción</label>
               <input
                 type="text"
@@ -39,7 +39,7 @@ export const FormTodoList = ({ newTodo }) => {
             </div>
           </div>
           <div className="col-lg-6">
-            <div class="form-group">
+            <div className="form-group">
               <label htmlFor="fechaCulminacion">Fecha culminacion</label>
               <input
                 type="date"
