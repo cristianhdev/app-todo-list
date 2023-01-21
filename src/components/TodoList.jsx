@@ -1,7 +1,7 @@
 import React from 'react'
 import { TodoListItems } from './TodoListItems'
 
-const TodoList = ({ listTodos, onCancelItem, onDoneItem,onUpdateItem }) => {
+const TodoList = ({ listTodos, onCancelItem, onDoneItem,onUpdateItem,onCanceladoItem }) => {
     return (
         <>
             <ul className="list-group">
@@ -12,7 +12,9 @@ const TodoList = ({ listTodos, onCancelItem, onDoneItem,onUpdateItem }) => {
                             todo={item}
                             onCancelTodo={onCancelItem}
                             onDoneTodo={onDoneItem}
-                            onUpdateTodo={onUpdateItem} />)
+                            onUpdateTodo={onUpdateItem}
+                            onCanceladoTodo={onCanceladoItem}
+                             />)
                 })
 
                 }

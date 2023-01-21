@@ -5,12 +5,13 @@ import { useForm } from '../hooks/useForm'
 
 export const FormTodoList = ({ newTodo }) => {
 
-  const { formState, descripcion, fechaCulminacion, onInputChange, onResetForm } = useForm({
+  const { formState, descripcion, fecha_culminacion, onInputChange, onResetForm } = useForm({
     id: new Date().getTime(),
     descripcion: "",
     estado: false,
+    cancelado:false,
     fecha_creacion: new Date().getTimezoneOffset(),
-    fecha_culminacion: null
+    fecha_culminacion: ""
   })
 
   const onFormSubmit = (event) => {
@@ -19,6 +20,8 @@ export const FormTodoList = ({ newTodo }) => {
     onResetForm()
 
   }
+
+  
 
   return (
     <>
@@ -40,14 +43,14 @@ export const FormTodoList = ({ newTodo }) => {
           </div>
           <div className="col-lg-12">
             <div className="form-group">
-              <label htmlFor="fechaCulminacion">Fecha culminacion</label>
+              <label htmlFor="fecha_culminacion">Fecha culminacion</label>
               <input
                 type="date"
-                id="fechaCulminacion"
-                name="fechaCulminacion"
+                id="fecha_culminacion"
+                name="fecha_culminacion"
                 className="form-control mt-3"
                 placeholder="Fecha Culminacion"
-                value={fechaCulminacion}
+                value={fecha_culminacion}
                 onChange={onInputChange}
               />
             </div>
@@ -57,6 +60,7 @@ export const FormTodoList = ({ newTodo }) => {
 
 
         <input type="submit" className="btn btn-primary mt-3" data-bs-dismiss="modal" value="GUARDAR" />
+        
       </form>
     </>
   )
