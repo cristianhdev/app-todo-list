@@ -28,27 +28,17 @@ function App() {
 
     switch (event.target.value) {
       case "todos":
-        onListTodos(todos)
-        break;
+        return todos
       case "completos":
-        filterComplete()
-        break;
+        return todos.filter((todo)=> todo.estado === true)
       case "por_hacer":
-        filterInComplete()
-        break;
+        return todos.filter((todo)=> todo.estado === false)
       default:
-        break;
+        return todos
     }
   }
 
 
-  const filterComplete = () =>{
-    return todos.filter((todo)=> todo.estado === true)
-  }
-
-  const filterInComplete = () =>{
-    return todos.filter((todo)=> todo.estado === false)
-  }
 
 
 
@@ -66,10 +56,10 @@ function App() {
             
 
             <div className="row text-lg-start">
-              <div className="col-lg-6">
+              <div className="col-lg-2">
                 <label htmlFor="filter">Filtrar</label>
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-10">
                 <select value={defaultCheck} className="form-control" id="filter" onChange={onChangeFilter}>
                   <option value="seleccione">Seleccione</option>
                   <option value="todos">Todos</option>
@@ -99,7 +89,7 @@ function App() {
       <hr></hr>
       <div className="row">
         <div className="col-lg-6 text-lg-start">
-          <small>Pendientes: {todosPendientes}</small> | <small>Total:{todosContador}</small> | <small> Cancelados:{todosCancelados} </small>
+          <small>Total:{todosContador}</small> | <small>Pendientes: {todosPendientes}</small> | <small> Cancelados:{todosCancelados} </small>
         </div>
       </div>
     </div>
